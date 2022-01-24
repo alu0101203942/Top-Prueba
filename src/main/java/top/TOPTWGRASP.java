@@ -1,19 +1,20 @@
-package top;
+package main.java.top;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-public class TOPTWGRASP { 
+public class TOPTWGRASP {
     public static double NO_EVALUATED = -1.0;
 
     private TOPTWSolution solution;
     private int solutionTime;
     private Random rand = SecureRandom.getInstanceStrong();
 
-    public TOPTWGRASP(TOPTWSolution sol){
+    public TOPTWGRASP(TOPTWSolution sol) throws NoSuchAlgorithmException {
         this.solution = sol;
         this.solutionTime = 0;
     }
@@ -41,8 +42,7 @@ public class TOPTWGRASP {
     end Greedy Randomized Construction.*/
 
     public void GRASP(int maxIterations, int maxSizeRCL) {
-        try{
-            double averageFitness = 0.0;
+        double averageFitness = 0.0;
         double bestSolution = 0.0;
         for(int i = 0; i < maxIterations; i++) {
 
@@ -68,23 +68,14 @@ public class TOPTWGRASP {
         averageFitness = averageFitness/maxIterations;
         System.out.println(" --> MEDIA: "+averageFitness);
         System.out.println(" --> MEJOR SOLUCION: "+bestSolution);
-        }catch(Exception e){
-            System.out.println (e.getMessage());
-        }
-        
     }
 
-    public int aleatorySelectionRCL(int maxTRCL) throws Exception{
-        //Random r = new Random();
-        try {
-            int low = 0;
-            int high = maxTRCL;
-            int posSelected = this.rand.nextInt(high-low) + low;
-            return posSelected;
-          }catch (Exception e){
-            System.out.println (e.getMessage());
-            return 0;
-          }
+    public int aleatorySelectionRCL(int maxTRCL) {
+        int rValue = this.rand.nextInt();
+        int low = 0;
+        int high = maxTRCL;
+        int posSelected = rand.nextInt(high-low) + low;
+        return posSelected;
     }
 
     public int fuzzySelectionBestFDRCL(ArrayList< double[] > rcl) {
@@ -104,7 +95,7 @@ public class TOPTWGRASP {
         return posSelected;
     }
 
-    public int fuzzySelectionAlphaCutRCL(ArrayList< double[] > rcl, double alpha) throws Exception {
+    public int fuzzySelectionAlphaCutRCL(ArrayList< double[] > rcl, double alpha) {
         ArrayList< double[] > rclAlphaCut = new ArrayList< double[] >();
         ArrayList< Integer > rclPos = new ArrayList< Integer >();
         double[] membershipFunction = new double[rcl.size()];
@@ -125,7 +116,7 @@ public class TOPTWGRASP {
         return posSelected;
     }
 
-    public void computeGreedySolution(int maxSizeRCL) throws Exception{
+    public void computeGreedySolution(int maxSizeRCL) {
         // inicialización
         this.solution.initSolution();
 
@@ -278,7 +269,8 @@ public class TOPTWGRASP {
                             costInsertion = costSuc;
                             if(costSuc > this.solution.getProblem().getMaxTimePerRoute()) { validFinalInsertion = false;}
 
-                            int pre2=suc, suc2 = -1;
+                            int pre2=suc;
+                            int suc2 = -1;
                             if(suc != depot)
                                 do {
                                     suc2 = this.solution.getSuccessor(pre2);
