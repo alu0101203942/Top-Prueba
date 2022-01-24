@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-public class TOPTWGRASP {
+public class TOPTWGRASP { 
     public static double NO_EVALUATED = -1.0;
 
     private TOPTWSolution solution;
@@ -41,7 +41,8 @@ public class TOPTWGRASP {
     end Greedy Randomized Construction.*/
 
     public void GRASP(int maxIterations, int maxSizeRCL) {
-        double averageFitness = 0.0;
+        try{
+            double averageFitness = 0.0;
         double bestSolution = 0.0;
         for(int i = 0; i < maxIterations; i++) {
 
@@ -67,14 +68,23 @@ public class TOPTWGRASP {
         averageFitness = averageFitness/maxIterations;
         System.out.println(" --> MEDIA: "+averageFitness);
         System.out.println(" --> MEJOR SOLUCION: "+bestSolution);
+        }catch(Exception e){
+            System.out.println (e.getMessage());
+        }
+        
     }
 
-    public int aleatorySelectionRCL(int maxTRCL) {
+    public int aleatorySelectionRCL(int maxTRCL) throws Exception{
         //Random r = new Random();
-        int low = 0;
-        int high = maxTRCL;
-        int posSelected = this.rand.nextInt(high-low) + low;
-        return posSelected;
+        try {
+            int low = 0;
+            int high = maxTRCL;
+            int posSelected = this.rand.nextInt(high-low) + low;
+            return posSelected;
+          }catch (Exception e){
+            System.out.println (e.getMessage());
+            return 0;
+          }
     }
 
     public int fuzzySelectionBestFDRCL(ArrayList< double[] > rcl) {
@@ -94,7 +104,7 @@ public class TOPTWGRASP {
         return posSelected;
     }
 
-    public int fuzzySelectionAlphaCutRCL(ArrayList< double[] > rcl, double alpha) {
+    public int fuzzySelectionAlphaCutRCL(ArrayList< double[] > rcl, double alpha) throws Exception {
         ArrayList< double[] > rclAlphaCut = new ArrayList< double[] >();
         ArrayList< Integer > rclPos = new ArrayList< Integer >();
         double[] membershipFunction = new double[rcl.size()];
@@ -115,7 +125,7 @@ public class TOPTWGRASP {
         return posSelected;
     }
 
-    public void computeGreedySolution(int maxSizeRCL) {
+    public void computeGreedySolution(int maxSizeRCL) throws Exception{
         // inicialización
         this.solution.initSolution();
 
