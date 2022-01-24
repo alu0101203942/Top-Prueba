@@ -1,5 +1,6 @@
 package top;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +11,7 @@ public class TOPTWGRASP {
 
     private TOPTWSolution solution;
     private int solutionTime;
+    private Random rand = SecureRandom.getInstanceStrong();
 
     public TOPTWGRASP(TOPTWSolution sol){
         this.solution = sol;
@@ -68,10 +70,10 @@ public class TOPTWGRASP {
     }
 
     public int aleatorySelectionRCL(int maxTRCL) {
-        Random r = new Random();
+        //Random r = new Random();
         int low = 0;
         int high = maxTRCL;
-        int posSelected = r.nextInt(high-low) + low;
+        int posSelected = this.rand.nextInt(high-low) + low;
         return posSelected;
     }
 
